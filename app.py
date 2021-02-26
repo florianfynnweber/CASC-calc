@@ -7,9 +7,9 @@ from tkinter import filedialog
 import pandas as pd
 
 
-def report_csv(data):
+def report_csv(data,d_path):
     for elm in data:
-        writer = pd.ExcelWriter(f'{elm}.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter(f'{d_path}/{elm}.xlsx', engine='xlsxwriter')
         for page in data[elm]:
             temp = pd.DataFrame(
                 {
@@ -61,7 +61,7 @@ def read_file(name):
     return dict_
 
 
-def read_directoy(path):
+def read_directoy(path, d_path):
     data = []
     tmp = {}
     for thing in os.listdir(path):
@@ -71,7 +71,7 @@ def read_directoy(path):
             tmp[thing["name"]].append(thing)
         else:
             tmp[thing["name"]] = [thing]
-    report_csv(tmp)
+    report_csv(tmp, d_path)
 
 
 def tk_file():
@@ -81,7 +81,8 @@ def tk_file():
 
 def tk_dir():
     path = filedialog.askdirectory()
-    read_directoy(path)
+    d_path = filedialog.askdirectory()
+    read_directoy(path, d_path)
 
 
 if __name__ == '__main__':
