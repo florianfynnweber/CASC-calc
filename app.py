@@ -52,7 +52,7 @@ def read_file(name):
             if dict_["y_max"] < int(line[1].rstrip()):
                 dict_["y_max"] = int(line[1].rstrip())
         other_data = re.search(r"2\t([^a-z])+?\t(.)+?\t(.)+?\t(.)+?\t(.)+?\t(.)+?\t(.)+?\t", data).group(0).split("\t")
-        print(f"area:{other_data[4]},heihg:{other_data[5]},a/h:{other_data[6]}")
+        # print(f"area:{other_data[4]},heihg:{other_data[5]},a/h:{other_data[6]}")
         try:
             dict_["peak_table"]["area"] = float(format(float(other_data[4].replace(",", ".")), '.5f'))
             dict_["peak_table"]["height"] = float(format(float(other_data[5].replace(",", ".")), '.5f'))
@@ -77,7 +77,9 @@ def read_directoy(path, d_path):
 
 def tk_file():
     file = filedialog.askopenfilename()
-    read_file(file)
+    d_path = filedialog.askdirectory()
+    data = read_file(file)
+    report_csv({data["name"]:[data]}, d_path)
 
 
 def tk_dir():
