@@ -2,17 +2,10 @@ import os
 import re
 import sys
 import logging
-import csv
-import json
-import argparse
 import tkinter
-from pprint import pprint
 from tkinter import filedialog
 import pandas as pd
-import xlsxwriter
 
-
-# main minimal gui tkinter explrer stuff
 
 def report_csv(data):
     for elm in data:
@@ -29,14 +22,6 @@ def report_csv(data):
             )
             temp.to_excel(writer, sheet_name=f"{page['temp']}")
         writer.save()
-    # df1 = pd.DataFrame({'Data': [11, 12, 13, 14]})
-    # df2 = pd.DataFrame({'Data': [21, 22, 23, 24]})
-    # df3 = pd.DataFrame({'Data': [31, 32, 33, 34]})
-    # writer = pd.ExcelWriter('pandas_multiple.xlsx', engine='xlsxwriter')
-    # df1.to_excel(writer, sheet_name='Sheet1')
-    # df2.to_excel(writer, sheet_name='Sheet2')
-    # df3.to_excel(writer, sheet_name='Sheet3')
-    # temp.to_excel(writer, sheet_name='Sheet4')
 
 
 def read_file(name):
@@ -101,9 +86,9 @@ def tk_dir():
 
 if __name__ == '__main__':
     # read_file("C:/Users/flori/PycharmProjects/CASC-calc/doc/1-Butanol_70°.TXT")
-    read_directoy("C:/Users/flori/PycharmProjects/CASC-calc/doc/")
+    # read_directoy("C:/Users/flori/PycharmProjects/CASC-calc/doc/")
     # report_csv("")
-    exit(1)
+    # exit(1)
     if sys.version_info.major == 3:
         root = tkinter.Tk()
         file = tkinter.Button(root, text="Read file...", command=tk_file)
