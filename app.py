@@ -22,6 +22,7 @@ def report_csv(data,d_path):
             )
             temp.to_excel(writer, sheet_name=f"{page['temp']}")
         writer.save()
+    exit(0)
 
 
 def read_file(name):
