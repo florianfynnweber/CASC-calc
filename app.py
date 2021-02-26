@@ -5,9 +5,16 @@ import logging
 import tkinter
 from tkinter import filedialog
 import pandas as pd
+import pkg_resources
+from pkg_resources import DistributionNotFound, VersionConflict
+
+dependencies = [
+    'pandas~=1.2.2',
+    'XlsxWriter~=1.3.7'
+]
 
 
-def report_csv(data,d_path):
+def report_csv(data, d_path):
     for elm in data:
         writer = pd.ExcelWriter(f'{d_path}/{elm}.xlsx', engine='xlsxwriter')
         for page in data[elm]:
@@ -79,7 +86,7 @@ def tk_file():
     file = filedialog.askopenfilename()
     d_path = filedialog.askdirectory()
     data = read_file(file)
-    report_csv({data["name"]:[data]}, d_path)
+    report_csv({data["name"]: [data]}, d_path)
 
 
 def tk_dir():
@@ -93,14 +100,20 @@ if __name__ == '__main__':
     # read_directoy("C:/Users/flori/PycharmProjects/CASC-calc/doc/")
     # report_csv("")
     # exit(1)
-    if sys.version_info.major == 3:
-        root = tkinter.Tk()
-        file = tkinter.Button(root, text="Read file...", command=tk_file)
-        dirs = tkinter.Button(root, text="Open directory...", command=tk_dir)
-        file.pack()
-        dirs.pack()
-        root.mainloop()
-    else:
-        print(f"Please User Python3")
+    try:
+        pkg_resources.require(dependencies)
+        if sys.version_info.major == 3:
+            root = tkinter.Tk()
+            file = tkinter.Button(root, text="Read file...", command=tk_file)
+            dirs = tkinter.Button(root, text="Open directory...", command=tk_dir)
+            file.pack()
+            dirs.pack()
+            root.mainloop()
+        else:
+            logging.info(f"Please User Python3")
+    except DistributionNotFound  as e:
+        os.system("pip install -r requirements.txt")
+    except VersionConflict as e:
+        logging.error(e)
 
 # [0-9],([0-9]){0,5}\t([\-]){0,1}[0-9]/g R.Time Intensity
