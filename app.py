@@ -13,6 +13,7 @@ dependencies = [
     'XlsxWriter~=1.3.7'
 ]
 
+TOL_VALUE = 0.001
 
 def report_csv(data, d_path):
     for elm in data:
@@ -22,6 +23,7 @@ def report_csv(data, d_path):
                 {
                     "X": page["table"]["x"],
                     "Y": page["table"]["y"],
+                    #"Y'": page["table"]["y_"],
                     "area": page["peak_table"]["area"],
                     "height": page["peak_table"]["height"],
                     "a/h": page["peak_table"]["a/h"]
@@ -39,7 +41,8 @@ def read_file(name):
             {
                 "x": [],
                 "y": [],
-                "y'": []
+                #"y_": [],
+                "special_x":[]
             },
         "peak_table": {
             "area": 0,
@@ -66,6 +69,15 @@ def read_file(name):
             dict_["peak_table"]["a/h"] = float(format(float(other_data[6].replace(",", ".")), '.5f'))
         except ValueError:
             logging.error(file_name)
+        #b = 1000
+        #for y_ in dict_["table"]["y"]:
+        #    #print(f"y:{y_},b:{b}={abs(0.5-y_)}")
+            #print(abs(0.5-y_))
+            #dict_["table"]["y_"].append(float(format(float(y_)/dict_["y_max"],'.5f')))
+           # if abs(0.5-abs(y_)) < b:
+            #    b = abs(0.5-y_)
+    #print(b,"sdkjflkjfdö")
+    #print(dict_["table"]["x"][8301:8306])
     return dict_
 
 
@@ -96,10 +108,10 @@ def tk_dir():
 
 
 if __name__ == '__main__':
-    # read_file("C:/Users/flori/PycharmProjects/CASC-calc/doc/1-Butanol_70°.TXT")
-    # read_directoy("C:/Users/flori/PycharmProjects/CASC-calc/doc/")
-    # report_csv("")
-    # exit(1)
+    #  read_file("C:/Users/flori/PycharmProjects/CASC-calc/doc/1-Butanol_70°.TXT")
+    read_directoy("C:/Users/flori/PycharmProjects/CASC-calc/doc/","C:/Users/flori/PycharmProjects/CASC-calc/")
+    #report_csv("")
+    exit(1)
     try:
         pkg_resources.require(dependencies)
         if sys.version_info.major == 3:
