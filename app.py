@@ -57,7 +57,7 @@ def read_file(name):
         data = file.read()
         for elm in re.finditer(r"[0-9],([0-9]){0,5}\t([\-]){0,1}([0-9])+?\n", data):
             line = re.split(r'\t', elm.group(0))
-            dict_["table"]["x"].append(format(float(line[0].rstrip().replace(",", ".")), '.5f'))
+            dict_["table"]["x"].append(float(format(float(line[0].rstrip().replace(",", ".")), '.5f')))
             dict_["table"]["y"].append(int(line[1].rstrip()))
             if dict_["y_max"] < int(line[1].rstrip()):
                 dict_["y_max"] = int(line[1].rstrip())
